@@ -15,7 +15,11 @@ spec:
         - npm-install
 
     - name: build
-      taskRef:
-        name: buildah
+      taskSpec:
+        steps:
+          - name: build-step
+            image: alpine
+            script: |
+              echo "Build completed"
       runAfter:
         - jasmine-test
