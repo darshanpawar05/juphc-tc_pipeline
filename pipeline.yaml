@@ -4,9 +4,18 @@ metadata:
   name: tax-pipeline
 spec:
   tasks:
-    - name: install
+    - name: npm-install
       taskRef:
         name: npm-install
-    - name: test
+
+    - name: jasmine-test
       taskRef:
         name: jasmine-test
+      runAfter:
+        - npm-install
+
+    - name: build-image
+      taskRef:
+        name: buildah
+      runAfter:
+        - jasmine-test
