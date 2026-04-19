@@ -1,21 +1,13 @@
 apiVersion: tekton.dev/v1beta1
-kind: Task
+kind: PipelineRun
 metadata:
-  name: npm-install
+  name: tax-pipeline-run
 spec:
-  steps:
-    - name: install
-      image: node:18
-      script: |
-        npm install
----
-apiVersion: tekton.dev/v1beta1
-kind: Task
-metadata:
-  name: jasmine-test
-spec:
-  steps:
-    - name: test
-      image: node:18
-      script: |
-        npx jasmine
+  pipelineRef:
+    name: tax-pipeline
+  params:
+    - name: dummy
+      value: "test"
+  workspaces:
+    - name: shared-workspace
+      emptyDir: {}
