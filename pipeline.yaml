@@ -14,7 +14,7 @@ spec:
       runAfter:
         - npm-install
 
-    - name: build-image
+    - name: build
       taskRef:
         name: buildah
       runAfter:
