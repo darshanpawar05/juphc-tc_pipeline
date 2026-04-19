@@ -1,15 +1,21 @@
 apiVersion: tekton.dev/v1beta1
-kind: PipelineRun
+kind: Task
 metadata:
-  name: tax-pipeline-run
+  name: npm-install
 spec:
-  pipelineRef:
-    name: tax-pipeline
-
-  params:
-    - name: IMAGE
-      value: us.icr.io/namespace/tax-calculator
-
-  workspaces:
-    - name: shared-workspace
-      emptyDir: {}
+  steps:
+    - name: install
+      image: node:18
+      script: |
+        npm install
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: jasmine-test
+spec:
+  steps:
+    - name: test
+      image: node:18
+      script: |
+        npx jasmine
